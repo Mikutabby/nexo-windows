@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Entornos virtuales
+venv/
+.env
+
+# Configuración sensible (API keys)
+config/api_keys.json
+
+# Memoria e historial local
+memory/emotion_history.json
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Archivos del sistema
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# PyInstaller
+*.spec

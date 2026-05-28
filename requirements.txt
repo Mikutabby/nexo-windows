@@ -1,0 +1,37 @@
+﻿sounddevice
+mediapipe>=0.10.0
+google-generativeai
+pillow
+requests
+beautifulsoup4
+duckduckgo-search
+playwright
+pyautogui
+pyperclip
+pygetwindow
+opencv-python
+numpy
+mss
+psutil
+comtypes
+pycaw
+win10toast
+send2trash
+youtube-transcript-api
+pywinauto
+python-pptx
+pyqt6
+# pyqt6-webengine is optional — enables interactive maps in NEXO.
+# Installed separately by the installer; failure doesn't abort setup.
+pyqt6-webengine
+google-auth-oauthlib
+google-api-python-client
+spotipy
+openrgb-python
+flask
+flask-socketio
+gtts
+edge-tts
+cryptography
+eventlet
+tzdata
