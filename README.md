@@ -1,8 +1,15 @@
 # 🤖 Nexo 3.0 — Asistente Personal con Inteligencia Emocional para Windows
 
+[![Build](https://github.com/Mikutabby/nexo-windows/actions/workflows/build.yml/badge.svg)](https://github.com/Mikutabby/nexo-windows/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/v/release/Mikutabby/nexo-windows)](https://github.com/Mikutabby/nexo-windows/releases)
+[![License](https://img.shields.io/github/license/Mikutabby/nexo-windows)](LICENSE)
+![Windows](https://img.shields.io/badge/Windows-10%2F11-blue)
+
 **Nexo 3.0** es un asistente de IA para Windows que no solo ejecuta comandos y automatiza tu PC, sino que también **entiende tus emociones** y se adapta a tu estado de ánimo.
 
 Basado en el motor de Gemini de Google, con interfaz holográfica interactiva, control por voz, y un sistema de detección emocional que lo hace único.
+
+> 🚀 **¿Querés probarlo ya?** Descargá el último `.exe` desde los [Artifacts del Build](https://github.com/Mikutabby/nexo-windows/actions/workflows/build.yml) o desde [Releases](https://github.com/Mikutabby/nexo-windows/releases).
 
 ---
 
@@ -49,9 +56,39 @@ Interfaz visual inmersiva con partículas animadas, orb interactivo, widgets flo
 
 ---
 
-## 🚀 Instalación Rápida
+## 🚀 Instalación
 
-### Opción 1: Ejecutar desde código fuente (recomendado)
+### Opción 1: Descargar el ejecutable (.exe) ⚡RECOMENDADO
+
+> **No requiere instalar Python ni nada.** Descargá el .exe y ejecutalo.
+
+1. **Descargá el .exe desde GitHub Actions**:
+   - Andá a [Actions > Build Nexo 3.0](https://github.com/Mikutabby/nexo-windows/actions/workflows/build.yml)
+   - Hacé clic en el último workflow exitoso (✔️ verde)
+   - Bajá hasta **Artifacts** y descargá `Nexo-3.0-Windows-x64.zip`
+   - Extraé el archivo, adentro está `Nexo 3.0.exe`
+
+   *O esperá a que creemos un release oficial con descarga directa.*
+
+2. **Obtené tu API Key de Gemini** (gratis):
+   - Andá a https://aistudio.google.com/apikey
+   - Hacé clic en "Create API Key"
+   - Copiá la clave
+
+3. **Configurá Nexo**:
+   - En la misma carpeta del `.exe`, creá una carpeta `config`
+   - Dentro, creá un archivo `api_keys.json` con este contenido (y poné tu API key):
+     ```json
+     {
+         "gemini_api_key": "TU_API_KEY_AQUI",
+         "timezone": "America/Argentina/Buenos_Aires",
+         "language": "es-ES"
+     }
+     ```
+
+4. **Ejecutá** `Nexo 3.0.exe`
+
+### Opción 2: Ejecutar desde código fuente
 
 1. **Instalá Python 3.12** desde [python.org](https://www.python.org/downloads/) (marcá "Add Python to PATH")
 
@@ -60,38 +97,33 @@ Interfaz visual inmersiva con partículas animadas, orb interactivo, widgets flo
    git clone https://github.com/Mikutabby/nexo-windows.git
    cd nexo-windows
    ```
-   O descargá el ZIP desde la página del repositorio y extraelo.
 
 3. **Instalá las dependencias**:
    ```
    pip install -r requirements.txt
    ```
 
-4. **Obtené tu API Key de Gemini**:
-   - Andá a https://aistudio.google.com/apikey
-   - Hacé clic en "Create API Key"
-   - Copiá la clave
-
-5. **Configurá Nexo**:
-   - Abrí `config/api_keys.json`
+4. **Configurá tu API Key**:
+   - Copiá `config/api_keys.json.example` como `config/api_keys.json`
    - Reemplazá `"TU_API_KEY_AQUI"` con tu clave de Gemini
-   - Configurá tu zona horaria si es necesario
 
-6. **Ejecutá Nexo**:
+5. **Ejecutá Nexo**:
    ```
    python main.py
    ```
 
-### Opción 2: Descargar el instalador (.exe)
+### Opción 3: Compilar tu propio .exe
 
-> ⚡ *Próximamente* — Estamos preparando un instalador automatizado. Por ahora, usá la Opción 1.
-
-Si querés generar tu propio `.exe` portátil:
+En una PC con Windows, ejecutá el script incluido:
+```
+build.bat
+```
+O manualmente:
 ```
 pip install pyinstaller
-pyinstaller --onefile --windowed --icon=assets/nexo_icono.ico --name "Nexo 3.0" main.py
+pyinstaller --onefile --windowed --icon=assets/nexo_icono.ico --name "Nexo 3.0" --add-data "actions;actions" --add-data "assets;assets" --add-data "config;config" --add-data "core;core" --add-data "launchers;launchers" --add-data "memory;memory" main.py
 ```
-El ejecutable se creará en la carpeta `dist/`.
+El `.exe` se crea en `dist/`.
 
 ---
 
