@@ -1,0 +1,65 @@
+name: Release Nexo 3.0
+
+on:
+  push:
+    tags:
+      - 'v*'  # Tags como v1.0, v2.0, etc.
+
+jobs:
+  release:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: ['3.12']
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: 🔧 Build executable
+        run: |
+          pyinstaller --onefile --windowed --icon=assets/nexo_icono.ico --name "Nexo 3.0" --add-data "actions;actions" --add-data "assets;assets" --add-data "config;config" --add-data "core;core" --add-data "launchers;launchers" --add-data "memory;memory" --add-data "requirements.txt;." main.py
+
+      - name: 📦 Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Nexo 3.0 ${{ github.ref_name }}
+          body: |
+            ## 🚀 Nexo 3.0 ${{ github.ref_name }}
+            
+            ### 📥 Descargas
+            - [⬇️ Nexo 3.0 Windows (x64)](./Nexo-3.0-Windows-x64.exe) — Ejecutable portable, no requiere instalación
+            
+            ### ✅ Requisitos
+            - Windows 10 u 11 (64 bits)
+            - API Key de Gemini (gratis en https://aistudio.google.com/apikey)
+            
+            ### 🔧 Instrucciones
+            1. Descargá el archivo `.exe`
+            2. Ejecutalo (puede tardar unos segundos en iniciar)
+            3. En la primera ejecución, configurá tu API Key de Gemini
+            4. ¡Listo! Hablá o escribile a Nexo
+            
+            ### ✨ Novedades
+            - Inteligencia emocional: detecta cómo te sentís y se adapta
+            - Control por voz y texto
+            - Automatización de PC
+            - Interfaz holográfica interactiva
+            
+            Para más info: [nexo-windows README](https://github.com/Mikutabby/nexo-windows#readme)
+          files: dist/"Nexo 3.0".exe
+          fail_on_unmatched_files: true
+          draft: false
+          prerelease: false
